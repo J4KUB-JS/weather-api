@@ -2,15 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Layout } from "./pages/layout/Layout";
 import { CityWeather } from "./pages/cityWeather/CityWeather";
+import { ErrorPage } from "./pages/Error/ErrorPage";
+import { App } from "./App";
 import { Home } from "./pages/home/Home";
+import { Provider } from "react-redux";
+import { store } from "./store";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
-    errorElement: <div>Error Page</div>,
+    element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -26,6 +29,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
